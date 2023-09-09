@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_screen">
+
+    <include app:graph="@navigation/registration_nav_graph"/>
+
+    <fragment
+        android:id="@+id/home_screen"
+        android:name="com.playground.app.registration.ui.HomeScreen"
+        android:label="HomeScreen"
+        tools:layout="@layout/home_screen">
+        <action
+            android:id="@+id/action_home_fragment_to_registration_nav_graph"
+            app:destination="@id/registration_nav_graph" />
+    </fragment>
+</navigation>

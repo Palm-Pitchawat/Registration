@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "19623560725",
+    "project_id": "registration-c7502",
+    "storage_bucket": "registration-c7502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19623560725:android:d40d1b3ce4c45ee098f01c",
+        "android_client_info": {
+          "package_name": "com.playground.app.registration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19623560725-526jvvcmpqu1u2v748rpbhqqrr76fkrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA55nxijSkDoJ-Gvyigaj5b_iQtOXPCy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19623560725-526jvvcmpqu1u2v748rpbhqqrr76fkrc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

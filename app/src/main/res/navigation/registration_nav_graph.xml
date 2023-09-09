@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_nav_graph"
+    app:startDestination="@id/user_personal_info_form_screen">
+
+    <fragment
+        android:id="@+id/user_personal_info_form_screen"
+        android:name="com.playground.app.registration.ui.UserPersonalInfoFormScreen"
+        android:label="UserPersonalInfoFormScreen"
+        tools:layout="@layout/user_personal_info_form_screen">
+        <action
+            android:id="@+id/action_user_personal_info_form_screen_to_user_credentials_form_screen"
+            app:destination="@id/user_credentials_form_screen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_credentials_form_screen"
+        android:name="com.playground.app.registration.ui.UserCredentialsFormScreen"
+        android:label="UserCredentialsFormScreen"
+        tools:layout="@layout/user_credentials_form_screen">
+        <action
+            android:id="@+id/action_user_credentials_form_screen_to_user_camera_screen"
+            app:destination="@id/user_camera_screen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_camera_screen"
+        android:name="com.playground.app.registration.ui.UserCameraScreen"
+        android:label="UserCameraScreen"
+        tools:layout="@layout/user_camera_screen">
+        <action
+            android:id="@+id/action_user_camera_screen_to_user_info_preview_screen"
+            app:destination="@id/user_info_preview" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_info_preview"
+        android:name="com.playground.app.registration.ui.UserInfoPreview"
+        android:label="UserInfoPreviewScreen"
+        tools:layout="@layout/user_info_preview_screen"/>
+</navigation>

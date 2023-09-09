@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">registration</string>
+    <string name="registration">Registration</string>
+    <string name="positive_button_in_warning_dialog">Understood</string>
+</resources>
