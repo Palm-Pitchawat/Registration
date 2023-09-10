@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private MainViewModel viewModel;
     private NavHostFragment navHostFragment;
     private NavController navController;
     private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        viewModel.logout();
         setContentView(binding.getRoot());
 
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.container);

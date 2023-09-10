@@ -1,4 +1,4 @@
-package com.playground.app.registration.data.model;
+package com.playground.app.registration.data.util;
 
 public abstract class Result<T> {
     private Result() {}

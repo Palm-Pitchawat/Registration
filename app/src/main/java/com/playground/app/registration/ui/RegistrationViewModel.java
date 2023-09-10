@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.playground.app.registration.data.model.Result;
+import com.google.firebase.auth.FirebaseUser;
+import com.playground.app.registration.data.util.Result;
 import com.playground.app.registration.data.repository.RegistrationRepository;
-import com.playground.app.registration.ui.model.RegistrationUiState;
 import com.playground.app.registration.ui.model.UserCredentials;
 import com.playground.app.registration.ui.model.UserInput;
 import com.playground.app.registration.ui.model.UserPersonalInfo;
@@ -24,9 +24,13 @@ public class RegistrationViewModel extends ViewModel {
     RegistrationViewModel(RegistrationRepository registrationRepository) {
         this.registrationRepository = registrationRepository;
     }
-    private final MutableLiveData<RegistrationUiState> uiState = new MutableLiveData<>(new RegistrationUiState());
-    public LiveData<RegistrationUiState> getUiState() {
-        return uiState;
+    private final MutableLiveData<Boolean> _isRegistrationSuccessful = new MutableLiveData<>(null);
+    public LiveData<Boolean> isRegistrationSuccessful() {
+        return _isRegistrationSuccessful;
+    }
+    private final MutableLiveData<String> _error = new MutableLiveData<>(null);
+    public LiveData<String> error() {
+        return _error;
     }
     private final MutableLiveData<Boolean> _isUserPersonalInfoValid = new MutableLiveData<>(null);
     public LiveData<Boolean> isUserPersonalInfoValid() {
@@ -59,11 +63,12 @@ public class RegistrationViewModel extends ViewModel {
         return _userCredentials;
     }
     public void register() {
-
-
         registrationRepository.registerWithFirebaseAuth(_userPersonalInfo, _userCredentials, result -> {
             if (result instanceof Result.Success) {
-                uiState.postValue(new RegistrationUiState());
+                _isRegistrationSuccessful.postValue(true);
+            }
+            if (result instanceof Result.Error) {
+                _error.postValue(((Result.Error<FirebaseUser>) result).exception.getMessage());
             }
         });
     }

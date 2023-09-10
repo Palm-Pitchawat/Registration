@@ -2,6 +2,8 @@ package com.playground.app.registration.data.repository.di;
 
 import com.playground.app.registration.data.repository.RegistrationRepository;
 import com.playground.app.registration.data.repository.RegistrationRepositoryImpl;
+import com.playground.app.registration.data.repository.UserRepository;
+import com.playground.app.registration.data.repository.UserRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -18,6 +20,12 @@ public abstract class RepositoryModule {
     @Binds
     @Singleton
     public abstract RegistrationRepository bindsRegistrationRepository(
-            RegistrationRepositoryImpl registrationRepositoryImpl
+        RegistrationRepositoryImpl registrationRepositoryImpl
+    );
+
+    @Binds
+    @Singleton
+    public abstract UserRepository bindsUserRepository(
+        UserRepositoryImpl userRepository
     );
 }

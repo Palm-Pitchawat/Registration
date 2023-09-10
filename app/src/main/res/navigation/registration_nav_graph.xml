@@ -39,5 +39,6 @@
         android:id="@+id/user_info_preview"
         android:name="com.playground.app.registration.ui.UserInfoPreview"
         android:label="UserInfoPreviewScreen"
-        tools:layout="@layout/user_info_preview_screen"/>
+        tools:layout="@layout/user_info_preview_screen" >
+    </fragment>
 </navigation>

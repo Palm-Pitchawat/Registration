@@ -12,6 +12,7 @@ import androidx.hilt.navigation.HiltViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.playground.app.registration.R;
@@ -51,6 +52,15 @@ public class UserInfoPreview extends Fragment {
 
         binding.submitBtn.setOnClickListener(button -> {
             viewModel.register();
+        });
+
+        viewModel.isRegistrationSuccessful().observe(getViewLifecycleOwner(), isSuccessful -> {
+            if (isSuccessful != null) {
+                if (isSuccessful) {
+                    NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build();
+                    navController.navigate(R.id.nav_graph, null, navOptions);
+                }
+            }
         });
     }
 }

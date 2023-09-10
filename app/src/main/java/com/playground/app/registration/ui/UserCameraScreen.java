@@ -110,7 +110,6 @@ public class UserCameraScreen extends Fragment {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                 viewModel.updatePictureUri(outputFileResults.getSavedUri());
-
             }
             @Override
             public void onError(@NonNull ImageCaptureException exception) {

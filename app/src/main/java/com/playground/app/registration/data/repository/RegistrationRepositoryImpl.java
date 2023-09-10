@@ -1,5 +1,6 @@
 package com.playground.app.registration.data.repository;
 
+import android.content.Context;
 import android.net.Uri;
 
 import com.google.android.gms.tasks.Tasks;
@@ -9,8 +10,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.playground.app.registration.data.model.Result;
 import com.playground.app.registration.data.repository.util.RepositoryCallBack;
+import com.playground.app.registration.data.util.Result;
 import com.playground.app.registration.ui.model.UserCredentials;
 import com.playground.app.registration.ui.model.UserPersonalInfo;
 
@@ -20,25 +21,35 @@ import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.qualifiers.ApplicationContext;
+
 public class RegistrationRepositoryImpl implements RegistrationRepository {
     private final FirebaseFirestore firebaseFirestore;
     private final FirebaseAuth firebaseAuth;
     private final FirebaseStorage firebaseStorage;
     private final ExecutorService executorService;
+    private final Context context;
 
     @Inject
-    RegistrationRepositoryImpl(FirebaseFirestore firebaseFirestore, FirebaseAuth firebaseAuth, FirebaseStorage firebaseStorage, ExecutorService executorService) {
+    RegistrationRepositoryImpl(
+        FirebaseFirestore firebaseFirestore,
+        FirebaseAuth firebaseAuth,
+        FirebaseStorage firebaseStorage,
+        ExecutorService executorService,
+        @ApplicationContext Context context
+    ) {
         this.firebaseFirestore = firebaseFirestore;
         this.firebaseAuth = firebaseAuth;
         this.firebaseStorage = firebaseStorage;
         this.executorService = executorService;
+        this.context = context;
     }
 
     @Override
     public void registerWithFirebaseAuth(
         UserPersonalInfo userPersonalInfo,
         UserCredentials userCredentials,
-        final RepositoryCallBack<FirebaseUser> callBack
+        RepositoryCallBack<FirebaseUser> callBack
     ) {
         executorService.execute(() -> {
             try {
@@ -51,7 +62,9 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
                     StorageReference storageReference = firebaseStorage.getReference().child("pictures/" + UUID.randomUUID().toString());
                     Tasks.await(storageReference.putFile(userPersonalInfo.getPictureUri()));
                     Uri downloadUri = Tasks.await(storageReference.getDownloadUrl());
+                    storageReference.getFile(downloadUri);
                     Tasks.await(firebaseFirestore.collection("users").document(userCredentials.getUsername().getText()).set(createUserExtraInfo(userPersonalInfo, downloadUri)));
+                    firebaseAuth.signOut();
                     callBack.onComplete(new Result.Success<>(firebaseUser));
                 } else {
                     callBack.onComplete(new Result.Error<>(new Exception("This username already exists")));
